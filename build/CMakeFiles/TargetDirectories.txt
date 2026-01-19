@@ -1,0 +1,4 @@
+C:/Programming/SpecialQuest/kursovaya/build/CMakeFiles/tree_project.dir
+C:/Programming/SpecialQuest/kursovaya/build/CMakeFiles/copy_data.dir
+C:/Programming/SpecialQuest/kursovaya/build/CMakeFiles/edit_cache.dir
+C:/Programming/SpecialQuest/kursovaya/build/CMakeFiles/rebuild_cache.dir

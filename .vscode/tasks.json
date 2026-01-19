@@ -1,0 +1,41 @@
+{
+    "version": "2.0.0",
+    "tasks": [
+        {
+            "label": "Configure CMake",
+            "type": "shell",
+            "command": "cmake",
+            "args": [
+                "-B", "${workspaceFolder}/build",
+                "-G", "Ninja"
+            ],
+            "group": "build",
+            "detail": "Генерирует build.ninja файл"
+        },
+        {
+            "label": "Build Project",
+            "type": "shell",
+            "command": "ninja",
+            "args": ["-C", "${workspaceFolder}/build"],
+            "group": {
+                "kind": "build",
+                "isDefault": true
+            },
+            "detail": "Собирает проект",
+            "dependsOn": "Configure CMake"
+        },
+        {
+            "label": "Build and Run",
+            "type": "shell",
+            "command": "ninja",
+            "args": ["-C", "${workspaceFolder}/build"],
+            "group": "test",
+            "detail": "Собирает и запускает",
+            "dependsOn": "Configure CMake",
+            "problemMatcher": [],
+            "runOptions": {
+                "runOn": "default"
+            }
+        }
+    ]
+}

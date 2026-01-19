@@ -1,0 +1,6 @@
+# ninja log v6
+3	118	7905347839959323	CMakeFiles/tree_project.dir/src/main.c.obj	b2d6c9b85f1e6b3f
+5	145	7905347839979390	CMakeFiles/tree_project.dir/src/tree.c.obj	a0cc366e94e3caa5
+145	264	7905347841377994	tree_project.exe	641c5655685abfe1
+264	298	7905347842566348	CMakeFiles/copy_data	b53fbe6aee569622
+264	298	7905347842566348	C:/Programming/SpecialQuest/kursovaya/build/CMakeFiles/copy_data	b53fbe6aee569622
