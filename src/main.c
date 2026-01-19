@@ -4,7 +4,7 @@
 int main()
 {
     printf("---------------------------------NEEEEEWWWW---------------------------:\n");
-    struct Node *root = create_tree_file("data/countries.txt");
+    struct Node *root = create_tree_file("data/countries.txt", AREA);
     inorder_traverse(root);
     free_tree(root);
     printf("---------------------------------END---------------------------:\n");

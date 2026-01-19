@@ -7,9 +7,13 @@
 #include <math.h>
 #include <ctype.h>
 #include "tree.h"
-
-typedef unsigned char byte;
-
+typedef enum
+{
+    NAME,
+    POPULATION,
+    GDP,
+    AREA
+} CountryField;
 /* Structure for storing country data */
 struct CountryData
 {
@@ -19,6 +23,8 @@ struct CountryData
     double gdp;         // GDP
     long area;          // Area
 };
+
+
 
 /* Parse a line and extract country data */
 struct CountryData parseCountryData(const char *line);
@@ -39,6 +45,6 @@ int convert_in_key(char *str);
 char *get_country_name(const char *line);
 
 /* Create tree from file */
-struct Node *create_tree_file(const char *filename);
+struct Node *create_tree_file(const char *filename, CountryField mode_key);
 
 #endif // FILE_WORK_H
