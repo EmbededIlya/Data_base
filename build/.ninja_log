@@ -1,6 +1,11 @@
 # ninja log v6
-3	118	7905347839959323	CMakeFiles/tree_project.dir/src/main.c.obj	b2d6c9b85f1e6b3f
-5	145	7905347839979390	CMakeFiles/tree_project.dir/src/tree.c.obj	a0cc366e94e3caa5
-145	264	7905347841377994	tree_project.exe	641c5655685abfe1
-264	298	7905347842566348	CMakeFiles/copy_data	b53fbe6aee569622
-264	298	7905347842566348	C:/Programming/SpecialQuest/kursovaya/build/CMakeFiles/copy_data	b53fbe6aee569622
+7	126	7905365378156918	CMakeFiles/tree_project.dir/src/main.c.obj	1b30c1393530275c
+158	276	7905365379658993	tree_project.exe	641c5655685abfe1
+10	157	7905365378186880	CMakeFiles/tree_project.dir/src/tree.c.obj	5b70954f92e07a07
+9	75	7905377667069923	CMakeFiles/copy_data	5c72168d81c01b40
+223	393	7905376477075208	database.exe	55a61d014c5feaf1
+9	75	7905377667069923	C:/Programming/SpecialQuest/Data_base/build/CMakeFiles/copy_data	5c72168d81c01b40
+5	137	7905376474912241	CMakeFiles/database.dir/src/main.c.obj	63b5d1202e129d3c
+9	222	7905376474942104	CMakeFiles/database.dir/src/tree.c.obj	3ee51f355d787397
+6	51	7905379334275167	CMakeFiles/copy_data	5c72168d81c01b40
+6	51	7905379334275167	C:/Programming/SpecialQuest/Data_base/build/CMakeFiles/copy_data	5c72168d81c01b40

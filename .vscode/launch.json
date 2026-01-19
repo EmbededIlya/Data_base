@@ -2,12 +2,24 @@
     "version": "0.2.0",
     "configurations": [
         {
-            "name": "Debug Tree",
-            "type": "cppdbg",
+            "name": "▶️ Run Program",
+            "type": "cppvsdbg",
             "request": "launch",
-            "program": "${workspaceFolder}/build/tree.exe",
+            "program": "${workspaceFolder}/build/database.exe",
             "args": [],
             "stopAtEntry": false,
+            "cwd": "${workspaceFolder}",
+            "environment": [],
+            "console": "integratedTerminal",
+            "preLaunchTask": "Build Project"
+        },
+        {
+            "name": "🐛 Debug Program",
+            "type": "cppdbg",
+            "request": "launch",
+            "program": "${workspaceFolder}/build/database.exe",
+            "args": [],
+            "stopAtEntry": true,  // Для отладки - останавливаться
             "cwd": "${workspaceFolder}",
             "environment": [],
             "externalConsole": true,
@@ -15,7 +27,7 @@
             "miDebuggerPath": "gdb",
             "setupCommands": [
                 {
-                    "description": "Включить отладку",
+                    "description": "Enable pretty-printing",
                     "text": "-enable-pretty-printing",
                     "ignoreFailures": true
                 }

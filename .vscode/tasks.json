@@ -2,40 +2,36 @@
     "version": "2.0.0",
     "tasks": [
         {
-            "label": "Configure CMake",
+            "label": "Build Project",  // ИЗМЕНИТЬ ТУТ!
             "type": "shell",
-            "command": "cmake",
+            "command": "powershell",
             "args": [
-                "-B", "${workspaceFolder}/build",
-                "-G", "Ninja"
+                "-Command",
+                "if (Test-Path 'build/CMakeCache.txt') { Remove-Item -Force 'build/CMakeCache.txt' }; if (!(Test-Path 'build')) { mkdir 'build' }; cd 'build'; cmake -G Ninja '..'; ninja"
             ],
-            "group": "build",
-            "detail": "Генерирует build.ninja файл"
-        },
-        {
-            "label": "Build Project",
-            "type": "shell",
-            "command": "ninja",
-            "args": ["-C", "${workspaceFolder}/build"],
             "group": {
                 "kind": "build",
                 "isDefault": true
-            },
-            "detail": "Собирает проект",
-            "dependsOn": "Configure CMake"
+            }
         },
         {
-            "label": "Build and Run",
+            "label": "Run Program",
             "type": "shell",
-            "command": "ninja",
-            "args": ["-C", "${workspaceFolder}/build"],
+            "command": "./build/database.exe",
+            "windows": {
+                "command": "build\\database.exe"
+            },
             "group": "test",
-            "detail": "Собирает и запускает",
-            "dependsOn": "Configure CMake",
-            "problemMatcher": [],
-            "runOptions": {
-                "runOn": "default"
-            }
+            "detail": "Запускает программу"
+        },
+        {
+            "label": "Clean",
+            "type": "shell",
+            "command": "powershell",
+            "args": [
+                "-Command",
+                "if (Test-Path 'build') { Remove-Item -Recurse -Force 'build'; Write-Host 'Cleaned!' }"
+            ]
         }
     ]
 }

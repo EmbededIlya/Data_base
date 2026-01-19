@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 3.14)
-project(TreeProject 
+project(DatabaseProject 
     VERSION 1.0.0
     DESCRIPTION "Tree data structure project"
     LANGUAGES C
@@ -28,19 +28,19 @@ set(CMAKE_C_FLAGS_DEBUG "-g -O0 -DDEBUG")
 set(CMAKE_C_FLAGS_RELEASE "-O3 -DNDEBUG")
 
 # Исполняемый файл
-add_executable(tree_project
+add_executable(database
     src/main.c
     src/tree.c
 )
 
 # Заголовочные файлы
-target_sources(tree_project PRIVATE
+target_sources(database PRIVATE
     inc/main.h
     inc/tree.h
 )
 
 # Директории include
-target_include_directories(tree_project PRIVATE inc)
+target_include_directories(database PRIVATE inc)
 
 # Копирование данных
 add_custom_target(copy_data ALL
@@ -48,13 +48,13 @@ add_custom_target(copy_data ALL
         ${CMAKE_CURRENT_SOURCE_DIR}/src/data.txt
         ${CMAKE_CURRENT_BINARY_DIR}/data.txt
     COMMENT "Copying data.txt"
-    DEPENDS tree_project
+    DEPENDS database
 )
 
 # Опции проекта
 option(WITH_DEBUG "Enable debug output" OFF)
 if(WITH_DEBUG)
-    target_compile_definitions(tree_project PRIVATE DEBUG_OUTPUT=1)
+    target_compile_definitions(database PRIVATE DEBUG_OUTPUT=1)
 endif()
 
 # Информация о проекте
