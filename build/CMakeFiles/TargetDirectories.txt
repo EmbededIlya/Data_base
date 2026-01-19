@@ -1,4 +1,3 @@
 C:/Programming/SpecialQuest/Data_base/build/CMakeFiles/database.dir
-C:/Programming/SpecialQuest/Data_base/build/CMakeFiles/copy_data.dir
 C:/Programming/SpecialQuest/Data_base/build/CMakeFiles/edit_cache.dir
 C:/Programming/SpecialQuest/Data_base/build/CMakeFiles/rebuild_cache.dir

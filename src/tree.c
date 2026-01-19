@@ -76,38 +76,37 @@ void left_right_rotate(struct Node **root)
 }
 void balance_tree(struct Node **root)
 {
+    if (*root == NULL)
+        return;
+
     int balance = get_balance(*root);
+
+    // Left Heavy
     if (balance < -1)
     {
-        if (get_balance((*root)->left) <= 0)
-        {
-            right_rotate(root);
-        }
-        else
-        {
-            left_right_rotate(root);
-        }
+        if (get_balance((*root)->left) > 0)
+            left_rotate(&((*root)->left)); // Left-Right case
+        right_rotate(root);                // Left-Left case
     }
+    // Right Heavy
     else if (balance > 1)
     {
-        if (get_balance((*root)->right) >= 0)
-        {
-            left_rotate(root);
-        }
-        else
-        {
-            right_left_rotate(root);
-        }
+        if (get_balance((*root)->right) < 0)
+            right_rotate(&((*root)->right)); // Right-Left case
+        left_rotate(root);                   // Right-Right case
     }
 }
 
-struct Node *create_node(char *country, int country_id, int area, int VVP, int key)
+struct Node *create_node(char *name, long population, char *phoneCode, double gdp, long area, int key)
 {
     struct Node *new_node = (struct Node *)malloc(sizeof(struct Node));
-    strncpy(new_node->country, country, 20);
-    new_node->country_id = country_id;
+    strncpy(new_node->name, name, 99);
+    new_node->name[99] = '\0';
+    new_node->population = population;
+    strncpy(new_node->phoneCode, phoneCode, 9);
+    new_node->phoneCode[9] = '\0';
+    new_node->gdp = gdp;
     new_node->area = area;
-    new_node->VVP = VVP;
     new_node->key = key;
     new_node->left = NULL;
     new_node->right = NULL;
@@ -115,14 +114,16 @@ struct Node *create_node(char *country, int country_id, int area, int VVP, int k
     return new_node;
 }
 
-struct Node *insert_node(struct Node *node, char *country, int country_id, int area, int VVP, int key)
+struct Node *insert_node(struct Node *node, char *name, long population, char *phoneCode, double gdp, long area, int key)
 {
     if (node == NULL)
-        return create_node(country, country_id, area, VVP, key);
+        return create_node(name, population, phoneCode, gdp, area, key);
+
     if (key < node->key)
-        node->left = insert_node(node->left, country, country_id, area, VVP, key);
+        node->left = insert_node(node->left, name, population, phoneCode, gdp, area, key);
     else if (key > node->key)
-        node->right = insert_node(node->right, country, country_id, area, VVP, key);
+        node->right = insert_node(node->right, name, population, phoneCode, gdp, area, key);
+
     update_height(node);
     balance_tree(&node);
     return node;
@@ -131,10 +132,13 @@ struct Node *copy_values(struct Node *dest, struct Node *src)
 {
     if (dest == NULL || src == NULL)
         return dest;
-    strncpy(dest->country, src->country, 20);
-    dest->country_id = src->country_id;
+    strncpy(dest->name, src->name, 99);
+    dest->name[99] = '\0';
+    dest->population = src->population;
+    strncpy(dest->phoneCode, src->phoneCode, 9);
+    dest->phoneCode[9] = '\0';
+    dest->gdp = src->gdp;
     dest->area = src->area;
-    dest->VVP = src->VVP;
     dest->key = src->key;
     return dest;
 }
@@ -182,8 +186,19 @@ void inorder_traverse(struct Node *node)
     if (node == NULL)
         return;
     inorder_traverse(node->left);
-    printf("Country: %s, Key: %d\n", node->country, node->key);
+    printf("Country: %s, Population: %ld, Phone: %s, GDP: %.2f, Area: %ld, Key: %d\n",
+           node->name, node->population, node->phoneCode, node->gdp, node->area, node->key);
     inorder_traverse(node->right);
+}
+
+void reverse_inorder_traverse(struct Node *node)
+{
+    if (node == NULL)
+        return;
+    reverse_inorder_traverse(node->right);
+    printf("Country: %s, Population: %ld, Phone: %s, GDP: %.2f, Area: %ld, Key: %d\n",
+           node->name, node->population, node->phoneCode, node->gdp, node->area, node->key);
+    reverse_inorder_traverse(node->left);
 }
 
 void free_tree(struct Node *node)
@@ -200,9 +215,9 @@ void test_tree()
     struct Node *root = NULL;
 
     // Добавляем страны
-    root = insert_node(root, "CountryA", 1, 1000, 50000, 10);
-    root = insert_node(root, "CountryB", 2, 2000, 60000, 20);
-    root = insert_node(root, "CountryC", 3, 1500, 55000, 5);
+    root = insert_node(root, "CountryA", 1000000, "+1", 15000.0, 1000000, 10);
+    root = insert_node(root, "CountryB", 2000000, "+2", 20000.0, 2000000, 20);
+    root = insert_node(root, "CountryC", 1500000, "+3", 18000.0, 1500000, 5);
 
     printf("Tree after adding:\n");
     inorder_traverse(root);

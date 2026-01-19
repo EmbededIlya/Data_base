@@ -2,10 +2,7 @@
 7	126	7905365378156918	CMakeFiles/tree_project.dir/src/main.c.obj	1b30c1393530275c
 158	276	7905365379658993	tree_project.exe	641c5655685abfe1
 10	157	7905365378186880	CMakeFiles/tree_project.dir/src/tree.c.obj	5b70954f92e07a07
-9	75	7905377667069923	CMakeFiles/copy_data	5c72168d81c01b40
-223	393	7905376477075208	database.exe	55a61d014c5feaf1
-9	75	7905377667069923	C:/Programming/SpecialQuest/Data_base/build/CMakeFiles/copy_data	5c72168d81c01b40
-5	137	7905376474912241	CMakeFiles/database.dir/src/main.c.obj	63b5d1202e129d3c
-9	222	7905376474942104	CMakeFiles/database.dir/src/tree.c.obj	3ee51f355d787397
-6	51	7905379334275167	CMakeFiles/copy_data	5c72168d81c01b40
-6	51	7905379334275167	C:/Programming/SpecialQuest/Data_base/build/CMakeFiles/copy_data	5c72168d81c01b40
+252	427	7905560128148317	database.exe	2c4584717c57a949
+9	252	7905560125711384	CMakeFiles/database.dir/src/file_work.c.obj	465aaad0991e567e
+12	160	7905559643520716	CMakeFiles/database.dir/src/main.c.obj	63b5d1202e129d3c
+9	208	7905558967197467	CMakeFiles/database.dir/src/tree.c.obj	3ee51f355d787397

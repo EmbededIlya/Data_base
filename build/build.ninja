@@ -62,6 +62,15 @@ build CMakeFiles/database.dir/src/tree.c.obj: C_COMPILER__database_unscanned_ C$
   TARGET_COMPILE_PDB = CMakeFiles\database.dir\
   TARGET_PDB = database.pdb
 
+build CMakeFiles/database.dir/src/file_work.c.obj: C_COMPILER__database_unscanned_ C$:/Programming/SpecialQuest/Data_base/src/file_work.c || cmake_object_order_depends_target_database
+  DEP_FILE = CMakeFiles\database.dir\src\file_work.c.obj.d
+  FLAGS = -std=c11
+  INCLUDES = -IC:/Programming/SpecialQuest/Data_base/inc
+  OBJECT_DIR = CMakeFiles\database.dir
+  OBJECT_FILE_DIR = CMakeFiles\database.dir\src
+  TARGET_COMPILE_PDB = CMakeFiles\database.dir\
+  TARGET_PDB = database.pdb
+
 
 # =============================================================================
 # Link build statements for EXECUTABLE target database
@@ -70,7 +79,7 @@ build CMakeFiles/database.dir/src/tree.c.obj: C_COMPILER__database_unscanned_ C$
 #############################################
 # Link the executable database.exe
 
-build database.exe: C_EXECUTABLE_LINKER__database_ CMakeFiles/database.dir/src/main.c.obj CMakeFiles/database.dir/src/tree.c.obj
+build database.exe: C_EXECUTABLE_LINKER__database_ CMakeFiles/database.dir/src/main.c.obj CMakeFiles/database.dir/src/tree.c.obj CMakeFiles/database.dir/src/file_work.c.obj
   LINK_LIBRARIES = -lkernel32 -luser32 -lgdi32 -lwinspool -lshell32 -lole32 -loleaut32 -luuid -lcomdlg32 -ladvapi32
   OBJECT_DIR = CMakeFiles\database.dir
   POST_BUILD = cd .
@@ -79,12 +88,6 @@ build database.exe: C_EXECUTABLE_LINKER__database_ CMakeFiles/database.dir/src/m
   TARGET_FILE = database.exe
   TARGET_IMPLIB = libdatabase.dll.a
   TARGET_PDB = database.pdb
-
-
-#############################################
-# Utility command for copy_data
-
-build copy_data: phony CMakeFiles/copy_data database.exe
 
 
 #############################################
@@ -110,14 +113,6 @@ build CMakeFiles/rebuild_cache.util: CUSTOM_COMMAND
 
 build rebuild_cache: phony CMakeFiles/rebuild_cache.util
 
-
-#############################################
-# Custom command for CMakeFiles\copy_data
-
-build CMakeFiles/copy_data | ${cmake_ninja_workdir}CMakeFiles/copy_data: CUSTOM_COMMAND database.exe || database.exe
-  COMMAND = C:\Windows\system32\cmd.exe /C "cd /D C:\Programming\SpecialQuest\Data_base\build && "C:\Program Files\CMake\bin\cmake.exe" -E copy_if_different C:/Programming/SpecialQuest/Data_base/src/data.txt C:/Programming/SpecialQuest/Data_base/build/data.txt"
-  DESC = Copying data.txt
-
 # =============================================================================
 # Target aliases.
 
@@ -131,7 +126,7 @@ build database: phony database.exe
 #############################################
 # Folder: C:/Programming/SpecialQuest/Data_base/build
 
-build all: phony database.exe copy_data
+build all: phony database.exe
 
 # =============================================================================
 # Built-in targets
