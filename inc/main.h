@@ -7,4 +7,5 @@
 #include "tree.h"
 #include "file_work.h"
 #include "table.h"
+#include <stdbool.h>
 #endif

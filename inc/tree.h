@@ -7,17 +7,21 @@
 
 struct Node
 {
-    char name[100];     // Название страны
-    long population;    // Население
-    char phoneCode[10]; // Телефонный код
-    double gdp;         // ВВП (в процентах или других единицах)
-    long area;          // Площадь страны
+    struct CountryData country;
     int key;
     int height;
     struct Node *left;
     struct Node *right;
 };
 
+enum SearchObject {
+    SEARCH_BY_NAME,
+    SEARCH_BY_POPULATION,
+    SEARCH_BY_PHONECODE,
+    SEARCH_BY_GDP,
+    SEARCH_BY_AREA,
+    SEARCH_BY_KEY   
+};
 // Find functions
 struct Node *find_min(struct Node *node);
 struct Node *find_max(struct Node *node);

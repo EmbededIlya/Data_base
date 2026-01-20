@@ -237,9 +237,6 @@ TreeProject_IS_TOP_LEVEL:STATIC=ON
 //Value Computed by CMake
 TreeProject_SOURCE_DIR:STATIC=C:/Programming/SpecialQuest/Data_base
 
-//Enable debug output
-WITH_DEBUG:BOOL=OFF
-
 
 ########################
 # INTERNAL cache entries

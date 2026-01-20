@@ -1,4 +1,5 @@
 cmake_minimum_required(VERSION 3.14)
+
 project(TreeProject 
     VERSION 1.0.0
     DESCRIPTION "Tree data structure project"
@@ -23,16 +24,12 @@ set(CMAKE_C_STANDARD 11)
 set(CMAKE_C_STANDARD_REQUIRED ON)
 set(CMAKE_C_EXTENSIONS OFF)
 
-# Настройки для разных конфигураций
-set(CMAKE_C_FLAGS_DEBUG "-g -O0 -DDEBUG")
-set(CMAKE_C_FLAGS_RELEASE "-O3 -DNDEBUG")
-
 # Исполняемый файл
 add_executable(database
     src/main.c
     src/tree.c
     src/file_work.c
-    src/table.c 
+    src/table.c
 )
 
 # Заголовочные файлы
@@ -45,13 +42,6 @@ target_sources(database PRIVATE
 
 # Директории include
 target_include_directories(database PRIVATE inc)
-
-
-# Опции проекта
-option(WITH_DEBUG "Enable debug output" OFF)
-if(WITH_DEBUG)
-    target_compile_definitions(database PRIVATE DEBUG_OUTPUT=1)
-endif()
 
 # Информация о проекте
 message(STATUS "Project: ${PROJECT_NAME}")
