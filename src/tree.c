@@ -298,3 +298,45 @@ void test_tree()
 
     free_tree(root);
 }
+
+static void write_tree_inorder(FILE *fp, struct Node *node)
+{
+    if (!node)
+        return;
+
+    write_tree_inorder(fp, node->left);
+
+    fprintf(fp, "%s,%ld,%s,%.2f,%ld,%d\n",
+            node->name,
+            node->population,
+            node->phoneCode,
+            node->gdp,
+            node->area,
+            node->key);
+    write_tree_inorder(fp, node->right);
+}
+
+int write_tree_to_file(const char *filename, struct Node *root)
+{
+    if (!root)
+        return -1;
+
+    FILE *fp = fopen(filename, "w");
+    if (!fp)
+    {
+        printf("Error opening file for writing: %s\n", filename);
+        perror("Reason");
+        return -1;
+    }
+
+    /* Заголовок таблицы */
+    fprintf(fp,
+        "country_name,country_population,country_phoneCode,"
+        "country_gdp,country_area,key\n");
+
+    /* Запись данных дерева */
+    write_tree_inorder(fp, root);
+
+    fclose(fp);
+    return 0;
+}

@@ -47,4 +47,7 @@ char *get_country_name(const char *line);
 /* Create tree from file */
 struct Node *create_tree_file(const char *filename, CountryField mode_key);
 
+/* Write tree to file */
+int write_tree_to_file(const char *filename, struct Node *root);
+
 #endif // FILE_WORK_H

@@ -51,4 +51,6 @@ void free_tree(struct Node *node);
 // Test function
 void test_tree();
 
+// File writing helper
+static void write_tree_inorder(FILE *fp, struct Node *node);
 #endif // TREE_H

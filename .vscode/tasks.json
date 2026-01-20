@@ -2,7 +2,7 @@
     "version": "2.0.0",
     "tasks": [
         {
-            "label": "Build Project",  // ИЗМЕНИТЬ ТУТ!
+            "label": "Build Project", // ИЗМЕНИТЬ ТУТ!
             "type": "shell",
             "command": "powershell",
             "args": [
@@ -17,7 +17,7 @@
         {
             "label": "Run Program",
             "type": "shell",
-            "command": "./build/database.exe",
+            "command": "./build/.exe",
             "windows": {
                 "command": "build\\database.exe"
             },

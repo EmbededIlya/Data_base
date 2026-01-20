@@ -6,5 +6,5 @@
 #include <string.h>
 #include "tree.h"
 #include "file_work.h"
-
+#include "table.h"
 #endif
