@@ -190,7 +190,7 @@ void inorder_traverse(struct Node *node)
 {
      if (!node) return;
     inorder_traverse(node->left);
-    printf("Key %d Name %s GDP %.1f Population %ld Area %ld\n", node->key, node->country.name, node->country.gdp, node->country.population, node->country.area);
+    printf("%d ", node->key);
     inorder_traverse(node->right);
 }
 
@@ -199,14 +199,13 @@ void reverse_inorder_traverse(struct Node *node)
     if (!node)
         return;
     reverse_inorder_traverse(node->right);
-    printf("Key: %d Name: %s GDP: %.1f Population: %ld Area: %ld\n", node->key, node->country.name, node->country.gdp, node->country.population, node->country.area);  
+    printf("Key %d Name %s GDP %.1f Population %ld Area %ld\n", node->key, node->country.name, node->country.gdp, node->country.population, node->country.area);
     reverse_inorder_traverse(node->left);
 }
 
 void inorder_array(struct Node *node, struct Node *arr, int idx)
 {
     if (!node) return;
-
     inorder_array(node->left, arr, idx);
     arr[idx] = *node; // сохраняем текущую ноду
     (idx)++;       
@@ -230,6 +229,19 @@ void reverse_inorder_array(struct Node *node, struct Node *arr, int idx)
     arr[idx] = *node;
     (idx)++;
     reverse_inorder_array(node->left, arr, idx);
+}
+
+
+struct Node * create_arr_nodes(int*size, struct Node *root)
+{
+    struct Node *arr = malloc((*size) * sizeof(struct Node));
+    if (!arr) {
+        printf("Memory allocation failed for array of nodes.\n");
+        return NULL;
+    }
+    int idx = 0;
+    inorder_array(root, arr, idx);
+    return arr;
 }
 
 /** Test function for the AVL tree implementation.*/

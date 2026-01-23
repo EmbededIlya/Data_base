@@ -45,6 +45,7 @@ struct Node *delete_node(struct Node *root, int key);
 struct Node *right_rotate(struct Node *root);
 struct Node *left_rotate(struct Node *root);
 struct Node *balance_tree(struct Node *root);
+struct Node * create_arr_nodes(int*size, struct Node *root);
 
 /* Tree deletion */
 void delete_tree(struct Node *root);
@@ -54,6 +55,8 @@ void inorder_traverse(struct Node *node);
 void reverse_inorder_traverse(struct Node *node);
 void inorder_array(struct Node *node, struct Node *arr, int idx);
 void reverse_inorder_array(struct Node *node, struct Node *arr, int idx);
+void print_inorder_array(struct Node **arr, int size);
+
 
 /* Test function */
 void test_tree(void);

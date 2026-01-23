@@ -31,7 +31,7 @@ CountryField convert(const char *sort_val) {
     return NAME; // Значение по умолчанию
 }
 
-void command_interface(enum commands cmd, struct Node **root) {
+void command_interface(enum commands cmd, struct Node **root, int *size) {
     // Реализация командного интерфейса
     int width_begin = 10;
     int width_end = 15;
@@ -58,12 +58,14 @@ void command_interface(enum commands cmd, struct Node **root) {
             printf ("%*s\n", width_begin, "Available sort values: NAME, POPULATION, PHONE_CODE, GDP, AREA");
             scanf("%s", sort_val); // ввод строки без пробелов
             *root = read_file(name_file_in, convert(sort_val));
+            *size = read_amount(name_file_in);
             // Загрузка данных из файла
             break;
         case CMD_SAVE:
             printf("%*s\n", width_begin, "Write name of file that will save data without .txt: ");
             scanf("%s", name_file_out); // ввод строки без пробелов
             sprintf(name_file_out, "%s.txt", name_file_out);
+            write_file(name_file_out, size, *root);
             // Сохранение данных в файл
             break;
         case CMD_DISPLAY:
@@ -102,16 +104,17 @@ int main()
     bool start_flag = 1;
     bool exit_flag = 0;
     struct Node *root = NULL;
+    int size_file = 0;
     while(1) {
         if(start_flag){
             printf("----------------------Start Menu------------------------\n");
             start_flag = false;
-            command_interface(CMD_HELP, &root);
+            command_interface(CMD_HELP, &root, &size_file);
         }
         printf("Enter command number: ");   
         int cmd;
         scanf("%d", &cmd);
-        command_interface(cmd, &root);
+        command_interface(cmd, &root, &size_file);
     }
     return 0;
 }

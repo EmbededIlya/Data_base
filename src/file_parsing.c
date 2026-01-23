@@ -1,6 +1,6 @@
 
 #include "file_parsing.h"
-
+#include "main.h"
 
 // Функция для парсинга строки и заполнения структуры
 struct CountryData parseCountryData(const char *line)
@@ -28,6 +28,17 @@ void printCountryData(const struct CountryData *country)
     printf("Area: %ld sq.km\n\n", country->area);
 }
 
+void check_file_opening(FILE *fp, const char *filename, const char *mode)
+{
+    if (!fp)
+    {
+        printf("Error opening file for %s: %s\n", mode, filename);
+        perror("Reason");
+        fclose(fp);
+        exit(EXIT_FAILURE);
+    }
+}
+
 int read_amount(const char *filename)
 {
     // буфер для считавания данных из файла
@@ -35,21 +46,14 @@ int read_amount(const char *filename)
     // чтение из файла
     int amount = 0;
     FILE *fp = fopen(filename, "r");
-    if (!fp)
-    {
-        printf("Error opening file for reading: %s\n", filename);
-        perror("Reason");
-        fclose(fp);
-        return 1; // или обработка ошибки
-    }
-
+    check_file_opening(fp, filename, "reading");
     // пока не дойдем до конца, считываем по 256 байт из файла f1
     while ((fgets(buffer, 64, fp)) != NULL)
     {
         amount++;
-        printf("Amount = %d\n", amount); // Добавил \n для удобства чтения
     }
     fclose(fp);
+    printf("Amount = %d\n", amount);
     return amount;
 }
 
@@ -107,13 +111,7 @@ struct Node * read_file(const char *filename, CountryField mode_key)
     struct CountryData country;
     // check file opening
     FILE *fp = fopen(filename, "r");
-    if (!fp)
-    {
-        printf("Error opening file for reading: %s\n", filename);
-        perror("Reason");
-        fclose(fp);
-        return NULL; // или обработка ошибки
-    }
+    check_file_opening(fp, filename, "reading");
     // read file line by line
     while (fgets(buffer, 256, fp) != NULL)
     {
@@ -129,3 +127,71 @@ struct Node * read_file(const char *filename, CountryField mode_key)
     return root;
 }
 
+void writeCountryRow(FILE *f, struct CountryData *c)
+{
+    fprintf(f,
+        "| %-26s | %12ld | %-6s | %8.2f | %9ld | %8ld |\n",
+        c->name,
+        c->population,
+        c->phoneCode,
+        c->gdp,
+        c->area
+    );
+    printf(
+        "| %-26s | %12ld | %-6s | %8.2f | %9ld | %8ld |\n",
+        c->name,
+        c->population,
+        c->phoneCode,
+        c->gdp,
+        c->area
+    );
+}
+
+void print_begin_file_table(FILE *out)
+{
+    fprintf(out,
+        "| %-26s | %12s | %-6s | %8s | %9s | %8s |\n",
+        "Country",
+        "Population",
+        "Phone",
+        "GDP",
+        "Area",
+        "Key"
+    );
+    printf(
+        "| %-26s | %12s | %-6s | %8s | %9s | %8s |\n",
+        "Country",
+        "Population",
+        "Phone",
+        "GDP",
+        "Area",
+        "Key"
+    );
+}
+
+
+
+int write_file(const char *filename, int*size, struct Node *root)
+{
+    if(root == NULL) {
+        printf("No data loaded to file: %s\n", filename);
+        return -1;
+    } 
+    struct CountryData country;
+    char buffer[256];
+    // check file opening
+    FILE *fp = fopen(filename, "w");
+    check_file_opening(fp, filename, "writing");
+    // create array of nodes
+    struct Node *arr = create_arr_nodes(size, root);
+    // write data to file
+    print_begin_file_table(fp);
+    for (int i = 0; i < *size; i++)
+    {   
+        writeCountryRow(fp, &arr[i].country);
+    }
+    // free array
+    free(arr);
+    fclose(fp);
+    return 0;
+}

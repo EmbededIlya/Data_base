@@ -39,6 +39,8 @@ char *get_country_name(const char *line);
 struct Node *read_file(const char *filename, CountryField mode_key);
 
 /* Generate key based on country data and selected field */
-int generate_key(CountryField mode_key, const struct CountryData *country);    
+int generate_key(CountryField mode_key, const struct CountryData *country);  
+/* Write tree data to file */
+int write_file(const char *filename, int*size, struct Node *root);  
 
 #endif // FILE_WORK_H
