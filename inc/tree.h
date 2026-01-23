@@ -52,8 +52,8 @@ void delete_tree(struct Node *root);
 /* Traversals */
 void inorder_traverse(struct Node *node);
 void reverse_inorder_traverse(struct Node *node);
-void inorder_array(struct Node *node, struct Node **arr, int *idx);
-void reverse_inorder_array(struct Node *node, struct Node **arr, int *idx);
+void inorder_array(struct Node *node, struct Node *arr, int idx);
+void reverse_inorder_array(struct Node *node, struct Node *arr, int idx);
 
 /* Test function */
 void test_tree(void);

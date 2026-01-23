@@ -12,6 +12,7 @@ typedef enum
 {
     NAME,
     POPULATION,
+    PHONE_CODE,
     GDP,
     AREA
 } CountryField;
@@ -29,15 +30,15 @@ int read_amount(const char *filename_r);
 int letter_pos(char c);
 
 /* Convert country name to key */
-int convert_in_key(char *str);
+unsigned long convert_in_key(const char *str);
 
 /* Get country name from a line */
 char *get_country_name(const char *line);
 
-/* Create tree from file */
-struct Node *create_tree_file(const char *filename, CountryField mode_key);
+/* Read file and populate tree */
+struct Node *read_file(const char *filename, CountryField mode_key);
 
-/* Write tree to file */
-int write_tree_to_file(const char *filename, struct Node *root);
+/* Generate key based on country data and selected field */
+int generate_key(CountryField mode_key, const struct CountryData *country);    
 
 #endif // FILE_WORK_H

@@ -190,7 +190,7 @@ void inorder_traverse(struct Node *node)
 {
      if (!node) return;
     inorder_traverse(node->left);
-    printf("%d ", node->key);
+    printf("Key %d Name %s GDP %.1f Population %ld Area %ld\n", node->key, node->country.name, node->country.gdp, node->country.population, node->country.area);
     inorder_traverse(node->right);
 }
 
@@ -199,27 +199,36 @@ void reverse_inorder_traverse(struct Node *node)
     if (!node)
         return;
     reverse_inorder_traverse(node->right);
-    printf("%d ", node->key);
+    printf("Key: %d Name: %s GDP: %.1f Population: %ld Area: %ld\n", node->key, node->country.name, node->country.gdp, node->country.population, node->country.area);  
     reverse_inorder_traverse(node->left);
 }
 
-void inorder_array(struct Node *node, struct Node **arr, int *idx)
+void inorder_array(struct Node *node, struct Node *arr, int idx)
 {
     if (!node) return;
 
     inorder_array(node->left, arr, idx);
-    arr[*idx] = node; // сохраняем текущую ноду
-    (*idx)++;
+    arr[idx] = *node; // сохраняем текущую ноду
+    (idx)++;       
     inorder_array(node->right, arr, idx);
 }
 
-void reverse_inorder_array(struct Node *node, struct Node **arr, int *idx)
+void print_inorder_array(struct Node **arr, int size)
+{
+    for (int i = 0; i < size; i++)
+    {
+        printf("%d ", arr[i]->key);
+    }
+    printf("\n");
+}
+
+void reverse_inorder_array(struct Node *node, struct Node *arr, int idx)
 {
     if (!node) return;
 
     reverse_inorder_array(node->right, arr, idx);
-    arr[*idx] = node;
-    (*idx)++;
+    arr[idx] = *node;
+    (idx)++;
     reverse_inorder_array(node->left, arr, idx);
 }
 

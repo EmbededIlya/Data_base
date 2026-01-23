@@ -13,12 +13,32 @@ enum commands {
     CMD_EXIT
 };
 
+CountryField convert(const char *sort_val) {
+    if (strcmp(sort_val, "NAME") == 0) {
+        return NAME;
+    } else if (strcmp(sort_val, "POPULATION") == 0) {
+        return POPULATION;
+    } else if (strcmp(sort_val, "PHONE_CODE") == 0) {
+        return PHONE_CODE;
+    } else if (strcmp(sort_val, "GDP") == 0) {
+        return GDP;
+    } else if (strcmp(sort_val, "AREA") == 0) {
+        return AREA;
+    } else {
+        printf("Unknown sort value. Defaulting to NAME.\n");
+        return NAME; // Значение по умолчанию
+    }
+    return NAME; // Значение по умолчанию
+}
+
 void command_interface(enum commands cmd) {
     // Реализация командного интерфейса
     int width_begin = 10;
     int width_end = 15;
+    struct Node *root = NULL;
     char name_file_in[100];
     char name_file_out[100];
+    char sort_val[100];
     switch (cmd) {
         case CMD_HELP:
             printf("%*s\n", width_begin, "Available commands:");
@@ -35,6 +55,11 @@ void command_interface(enum commands cmd) {
             printf("%*s\n", width_begin, "Write name of file without .txt: ");
             scanf("%s", name_file_in); // ввод строки без пробелов
             sprintf(name_file_in, "%s.txt", name_file_in);
+            printf("%*s\n", width_begin, "Write sort value: ");
+            printf ("%*s\n", width_begin, "Available sort values: NAME, POPULATION, PHONE_CODE, GDP, AREA");
+            scanf("%s", sort_val); // ввод строки без пробелов
+            root = read_file(name_file_in, convert(sort_val));
+            inorder_traverse(root);
             // Загрузка данных из файла
             break;
         case CMD_SAVE:
