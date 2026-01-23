@@ -31,11 +31,10 @@ CountryField convert(const char *sort_val) {
     return NAME; // Значение по умолчанию
 }
 
-void command_interface(enum commands cmd) {
+void command_interface(enum commands cmd, struct Node **root) {
     // Реализация командного интерфейса
     int width_begin = 10;
     int width_end = 15;
-    struct Node *root = NULL;
     char name_file_in[100];
     char name_file_out[100];
     char sort_val[100];
@@ -58,8 +57,7 @@ void command_interface(enum commands cmd) {
             printf("%*s\n", width_begin, "Write sort value: ");
             printf ("%*s\n", width_begin, "Available sort values: NAME, POPULATION, PHONE_CODE, GDP, AREA");
             scanf("%s", sort_val); // ввод строки без пробелов
-            root = read_file(name_file_in, convert(sort_val));
-            inorder_traverse(root);
+            *root = read_file(name_file_in, convert(sort_val));
             // Загрузка данных из файла
             break;
         case CMD_SAVE:
@@ -70,7 +68,7 @@ void command_interface(enum commands cmd) {
             break;
         case CMD_DISPLAY:
             // Отображение данных
-            test_tree();
+            inorder_traverse(*root);
             break;
         case CMD_ADD:
             // Добавление новой записи
@@ -103,16 +101,17 @@ int main()
     // printf("---------------------------------END---------------------------:\n");
     bool start_flag = 1;
     bool exit_flag = 0;
+    struct Node *root = NULL;
     while(1) {
         if(start_flag){
             printf("----------------------Start Menu------------------------\n");
             start_flag = false;
-            command_interface(CMD_HELP);
+            command_interface(CMD_HELP, &root);
         }
         printf("Enter command number: ");   
         int cmd;
         scanf("%d", &cmd);
-        command_interface(cmd);
+        command_interface(cmd, &root);
     }
     return 0;
 }
