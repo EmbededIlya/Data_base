@@ -62,17 +62,8 @@ build CMakeFiles/database.dir/src/tree.c.obj: C_COMPILER__database_unscanned_ C$
   TARGET_COMPILE_PDB = CMakeFiles\database.dir\
   TARGET_PDB = database.pdb
 
-build CMakeFiles/database.dir/src/file_work.c.obj: C_COMPILER__database_unscanned_ C$:/Programming/SpecialQuest/Data_base/src/file_work.c || cmake_object_order_depends_target_database
-  DEP_FILE = CMakeFiles\database.dir\src\file_work.c.obj.d
-  FLAGS = -std=c11
-  INCLUDES = -IC:/Programming/SpecialQuest/Data_base/inc
-  OBJECT_DIR = CMakeFiles\database.dir
-  OBJECT_FILE_DIR = CMakeFiles\database.dir\src
-  TARGET_COMPILE_PDB = CMakeFiles\database.dir\
-  TARGET_PDB = database.pdb
-
-build CMakeFiles/database.dir/src/table.c.obj: C_COMPILER__database_unscanned_ C$:/Programming/SpecialQuest/Data_base/src/table.c || cmake_object_order_depends_target_database
-  DEP_FILE = CMakeFiles\database.dir\src\table.c.obj.d
+build CMakeFiles/database.dir/src/file_parsing.c.obj: C_COMPILER__database_unscanned_ C$:/Programming/SpecialQuest/Data_base/src/file_parsing.c || cmake_object_order_depends_target_database
+  DEP_FILE = CMakeFiles\database.dir\src\file_parsing.c.obj.d
   FLAGS = -std=c11
   INCLUDES = -IC:/Programming/SpecialQuest/Data_base/inc
   OBJECT_DIR = CMakeFiles\database.dir
@@ -88,7 +79,7 @@ build CMakeFiles/database.dir/src/table.c.obj: C_COMPILER__database_unscanned_ C
 #############################################
 # Link the executable database.exe
 
-build database.exe: C_EXECUTABLE_LINKER__database_ CMakeFiles/database.dir/src/main.c.obj CMakeFiles/database.dir/src/tree.c.obj CMakeFiles/database.dir/src/file_work.c.obj CMakeFiles/database.dir/src/table.c.obj
+build database.exe: C_EXECUTABLE_LINKER__database_ CMakeFiles/database.dir/src/main.c.obj CMakeFiles/database.dir/src/tree.c.obj CMakeFiles/database.dir/src/file_parsing.c.obj
   LINK_LIBRARIES = -lkernel32 -luser32 -lgdi32 -lwinspool -lshell32 -lole32 -loleaut32 -luuid -lcomdlg32 -ladvapi32
   OBJECT_DIR = CMakeFiles\database.dir
   POST_BUILD = cd .

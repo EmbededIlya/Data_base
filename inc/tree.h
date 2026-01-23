@@ -4,57 +4,58 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <math.h>
 
-struct Node
+/** Maximum length for country name and phone code */
+#define MAX_NAME_LEN 64
+#define MAX_PHONE_LEN 16
+
+struct CountryData
 {
+    char name[100];     // Country name
+    long population;    // Population
+    char phoneCode[10]; // Phone code
+    double gdp;         // GDP
+    long area;          // Area
+};
+
+/** Structure for AVL tree node */
+struct Node {
     struct CountryData country;
     int key;
-    int height;
     struct Node *left;
     struct Node *right;
+    int height;
 };
 
-enum SearchObject {
-    SEARCH_BY_NAME,
-    SEARCH_BY_POPULATION,
-    SEARCH_BY_PHONECODE,
-    SEARCH_BY_GDP,
-    SEARCH_BY_AREA,
-    SEARCH_BY_KEY   
-};
-// Find functions
-struct Node *find_min(struct Node *node);
-struct Node *find_max(struct Node *node);
+/** Function prototypes */
 
-// Height functions
+/* Node creation and basic operations */
+struct Node *create_node(struct CountryData new_country, int key);
+struct Node *find_min(struct Node *root);
+struct Node *find_max(struct Node *root);
 int get_height(struct Node *N);
 void update_height(struct Node *N);
 int get_balance(struct Node *N);
 
-// Rotation functions
-void swap_nodes(struct Node *a, struct Node *b);
-void right_rotate(struct Node **root);
-void left_rotate(struct Node **root);
-void right_left_rotate(struct Node **root);
-void left_right_rotate(struct Node **root);
-void balance_tree(struct Node **root);
-
-// Node operations
-struct Node *create_node(char *name, long population, char *phoneCode, double gdp, long area, int key);
-struct Node *insert_node(struct Node *node, char *name, long population, char *phoneCode, double gdp, long area, int key);
-struct Node *copy_values(struct Node *dest, struct Node *src);
+/* AVL tree operations */
+struct Node *search_node(struct Node *root, int key);
+struct Node *insert_node(struct Node *root, struct CountryData country, int key);
 struct Node *delete_node(struct Node *root, int key);
+struct Node *right_rotate(struct Node *root);
+struct Node *left_rotate(struct Node *root);
+struct Node *balance_tree(struct Node *root);
 
-// Traversal
+/* Tree deletion */
+void delete_tree(struct Node *root);
+
+/* Traversals */
 void inorder_traverse(struct Node *node);
 void reverse_inorder_traverse(struct Node *node);
+void inorder_array(struct Node *node, struct Node **arr, int *idx);
+void reverse_inorder_array(struct Node *node, struct Node **arr, int *idx);
 
-// Memory management
-void free_tree(struct Node *node);
+/* Test function */
+void test_tree(void);
 
-// Test function
-void test_tree();
-
-// File writing helper
-static void write_tree_inorder(FILE *fp, struct Node *node);
 #endif // TREE_H

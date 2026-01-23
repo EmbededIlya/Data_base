@@ -1,5 +1,6 @@
 
-#include "file_work.h"
+#include "file_parsing.h"
+
 
 // Функция для парсинга строки и заполнения структуры
 struct CountryData parseCountryData(const char *line)
@@ -52,60 +53,3 @@ int read_amount(const char *filename)
     return amount;
 }
 
-struct Node *create_tree_file(const char *filename, CountryField mode_key)
-{
-    // Реализация функции создания дерева из файла
-    char buffer[512];
-    struct CountryData country;
-    struct Node *root = NULL;
-    int count = 0;
-    int line_num = 0;
-
-    FILE *fp = fopen(filename, "r");
-    if (!fp)
-    {
-        printf("Error opening file for reading: %s\n", filename);
-        perror("Reason");
-        return NULL;
-    }
-    int key = 0;
-    // Читаем строку за строкой из файла
-    while (fgets(buffer, sizeof(buffer), fp) != NULL)
-    {
-        line_num++;
-
-        // Пропускаем пустые строки и строки с только пробельными символами
-        char *p = buffer;
-        while (*p == ' ' || *p == '\t')
-            p++;
-        if (*p == '\n' || *p == '\r' || *p == '\0')
-            continue;
-
-        country = parseCountryData(p);
-        // Проверяем, что страна имеет имя
-        if (strlen(country.name) > 0)
-        {
-            if (mode_key == NAME)
-            {
-                key = convert_in_key(country.name);
-            }
-            else if (mode_key == POPULATION)
-            {
-                key = (int)(country.population / 1000000); // Пример: ключ - население в миллионах
-            }
-            else if (mode_key == GDP)
-            {
-                key = (int)(country.gdp); // Пример: ключ - ВВП
-            }
-            else if (mode_key == AREA)
-            {
-                key = (int)(country.area / 1000); // Пример: ключ - площадь в тысячах кв.км
-            }
-            root = insert_node(root, country.name, country.population, country.phoneCode, country.gdp, country.area, key);
-            count++;
-        }
-    }
-
-    fclose(fp);
-    return root;
-}

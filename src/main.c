@@ -45,6 +45,7 @@ void command_interface(enum commands cmd) {
             break;
         case CMD_DISPLAY:
             // Отображение данных
+            test_tree();
             break;
         case CMD_ADD:
             // Добавление новой записи

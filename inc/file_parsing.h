@@ -7,6 +7,7 @@
 #include <math.h>
 #include <ctype.h>
 #include "tree.h"
+
 typedef enum
 {
     NAME,
@@ -14,17 +15,6 @@ typedef enum
     GDP,
     AREA
 } CountryField;
-/* Structure for storing country data */
-struct CountryData
-{
-    char name[100];     // Country name
-    long population;    // Population
-    char phoneCode[10]; // Phone code
-    double gdp;         // GDP
-    long area;          // Area
-};
-
-
 
 /* Parse a line and extract country data */
 struct CountryData parseCountryData(const char *line);

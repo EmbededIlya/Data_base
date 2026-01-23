@@ -28,16 +28,14 @@ set(CMAKE_C_EXTENSIONS OFF)
 add_executable(database
     src/main.c
     src/tree.c
-    src/file_work.c
-    src/table.c
+    src/file_parsing.c
 )
 
 # Заголовочные файлы
 target_sources(database PRIVATE
     inc/main.h
     inc/tree.h
-    inc/file_work.h
-    inc/table.h
+    inc/file_parsing.h
 )
 
 # Директории include

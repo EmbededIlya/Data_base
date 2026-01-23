@@ -5,7 +5,6 @@
 #include <stdlib.h>
 #include <string.h>
 #include "tree.h"
-#include "file_work.h"
-#include "table.h"
+#include "file_parsing.h"
 #include <stdbool.h>
 #endif
