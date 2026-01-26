@@ -10,7 +10,9 @@ enum commands {
     CMD_ADD,
     CMD_DELETE,
     CMD_SEARCH,
-    CMD_EXIT
+    CMD_EXIT,
+    CMD_SAVE_FILE_DEFAULT,
+    CMD_LOAD_READY
 };
 
 CountryField convert(const char *sort_val) {
@@ -38,6 +40,11 @@ void command_interface(enum commands cmd, struct Node **root, int *size) {
     char name_file_in[100];
     char name_file_out[100];
     char sort_val[100];
+    struct  CountryData country;
+    {
+        /* data */
+    };
+    
     switch (cmd) {
         case CMD_HELP:
             printf("%*s\n", width_begin, "Available commands:");
@@ -49,6 +56,8 @@ void command_interface(enum commands cmd, struct Node **root, int *size) {
             printf("%*d - Delete record\n", width_end, CMD_DELETE);
             printf("%*d - Search record\n", width_end, CMD_SEARCH);
             printf("%*d - Exit program\n", width_end, CMD_EXIT);
+            printf("%*d - Load ready data from default file\n", width_end, CMD_LOAD_READY);
+            printf("%*d - Save ready data from default file\n", width_end, CMD_SAVE_FILE_DEFAULT);
             break;
         case CMD_LOAD:
             printf("%*s\n", width_begin, "Write name of file without .txt: ");
@@ -74,6 +83,18 @@ void command_interface(enum commands cmd, struct Node **root, int *size) {
             break;
         case CMD_ADD:
             // Добавление новой записи
+            break;
+        case CMD_LOAD_READY:
+            // Добавление новой записи
+            sprintf(name_file_in, "data/countries.txt");
+            *root = read_file(name_file_in, NAME);
+            *size = read_amount(name_file_in);
+            // Загрузка данных из файла
+            break;
+        case CMD_SAVE_FILE_DEFAULT:
+            printf("%*s\n", width_begin, "Write to file ");
+            sprintf(name_file_out, "data/c.txt");
+            write_file(name_file_out, size, *root);
             break;
         case CMD_DELETE:
             // Удаление записи

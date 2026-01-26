@@ -1,9 +1,9 @@
 # ninja log v6
 9	220	7906067647386364	CMakeFiles/database.dir/src/file_work.c.obj	465aaad0991e567e
-6	137	7909023006572208	database.exe	b510e1a865bff5ff
-5	128	7909022780652332	CMakeFiles/database.dir/src/file_parsing.c.obj	c14bf03cbe79e4f6
-7	193	7909014967140426	CMakeFiles/database.dir/src/tree.c.obj	3ee51f355d787397
+161	366	7911482772112047	database.exe	b510e1a865bff5ff
+7	155	7911482770297390	CMakeFiles/database.dir/src/file_parsing.c.obj	c14bf03cbe79e4f6
+5	176	7911482160978204	CMakeFiles/database.dir/src/tree.c.obj	3ee51f355d787397
 10	163	7906111465316913	CMakeFiles/database.dir/src/table.c.obj	833dd1e8df3b66d0
-5	115	7909017416082407	CMakeFiles/database.dir/src/main.c.obj	63b5d1202e129d3c
-7	151	7909024064971942	CMakeFiles/database.dir/src/file_parsing.c.obj	c14bf03cbe79e4f6
-152	309	7909024066409484	database.exe	b510e1a865bff5ff
+6	156	7911454850706724	CMakeFiles/database.dir/src/main.c.obj	63b5d1202e129d3c
+5	117	7911490673617476	CMakeFiles/database.dir/src/main.c.obj	63b5d1202e129d3c
+117	258	7911490674736850	database.exe	b510e1a865bff5ff

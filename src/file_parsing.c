@@ -113,10 +113,13 @@ struct Node * read_file(const char *filename, CountryField mode_key)
     FILE *fp = fopen(filename, "r");
     check_file_opening(fp, filename, "reading");
     // read file line by line
+    int i =0;
     while (fgets(buffer, 256, fp) != NULL)
     {
         country = parseCountryData(buffer);
         root = insert_node(root, country, generate_key(mode_key, &country));
+        printf("%d\n", i);
+        i++;
     }
     if(root == NULL) {
         printf("No data loaded from file: %s\n", filename);
@@ -129,6 +132,8 @@ struct Node * read_file(const char *filename, CountryField mode_key)
 
 void writeCountryRow(FILE *f, struct CountryData *c)
 {
+    fprintf(f,"----------------------------------------------------------------------------------------\n");
+    printf("----------------------------------------------------------------------------------------\n");
     fprintf(f,
         "| %-26s | %12ld | %-6s | %8.2f | %9ld | %8ld |\n",
         c->name,
@@ -149,6 +154,8 @@ void writeCountryRow(FILE *f, struct CountryData *c)
 
 void print_begin_file_table(FILE *out)
 {
+    fprintf(out,"----------------------------------------------------------------------------------------\n");
+    printf("----------------------------------------------------------------------------------------\n");
     fprintf(out,
         "| %-26s | %12s | %-6s | %8s | %9s | %8s |\n",
         "Country",
