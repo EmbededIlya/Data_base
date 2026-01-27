@@ -286,3 +286,18 @@ void test_tree(void)
 
     delete_tree(root);
 }
+
+void print_node_co_data(const struct Node *node)
+{
+    if (!node) {
+        printf("Node: NULL\n");
+        return;
+    }
+
+    printf("  Country data:\n");
+    printf("    name: %s\n", node->country.name);
+    printf("    population: %ld\n", node->country.population);
+    printf("    phoneCode: %s\n", node->country.phoneCode);
+    printf("    gdp: %.2f\n", node->country.gdp);
+    printf("    area: %ld\n", node->country.area);
+}

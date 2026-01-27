@@ -56,6 +56,7 @@ void reverse_inorder_traverse(struct Node *node);
 void inorder_array(struct Node *node, struct Node *arr, int *idx);
 void reverse_inorder_array(struct Node *node, struct Node *arr, int idx);
 void print_inorder_array(struct Node **arr, int size);
+void print_node_co_data(const struct Node *node);
 
 
 /* Test function */

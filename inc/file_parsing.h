@@ -10,7 +10,7 @@
 
 typedef enum
 {
-    NAME,
+    NAME = 0,
     POPULATION,
     PHONE_CODE,
     GDP,
