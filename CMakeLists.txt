@@ -35,7 +35,6 @@ add_executable(database
 target_sources(database PRIVATE
     inc/main.h
     inc/tree.h
-    inc/file_parsing.h
 )
 
 # Директории include

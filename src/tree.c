@@ -208,7 +208,7 @@ void inorder_array(struct Node *node, struct Node *arr, int *idx)
     if (!node) return;
     inorder_array(node->left, arr, idx);
     arr[*idx] = *node; // сохраняем текущую ноду
-    printf("inorder_array %d\n", *idx);     
+    //printf("inorder_array %d\n", *idx);     
     (*idx)++;  
 
     inorder_array(node->right, arr, idx);
@@ -293,11 +293,106 @@ void print_node_co_data(const struct Node *node)
         printf("Node: NULL\n");
         return;
     }
-
     printf("  Country data:\n");
     printf("    name: %s\n", node->country.name);
     printf("    population: %ld\n", node->country.population);
     printf("    phoneCode: %s\n", node->country.phoneCode);
     printf("    gdp: %.2f\n", node->country.gdp);
     printf("    area: %ld\n", node->country.area);
+}
+
+
+int count_nodes(struct Node *node)
+{
+    if (!node) return 0;
+    return 1 + count_nodes(node->left) + count_nodes(node->right);
+}
+
+
+void copy_tree_data(struct Node *node, struct CountryData *arr, int *idx)
+{
+    if (!node) return;
+    copy_tree_data(node->left, arr, idx);
+    arr[(*idx)++] = node->country;
+    copy_tree_data(node->right, arr, idx);
+}
+
+
+struct Node *build_tree_with_keys(struct CountryData *arr, int size, CountryField mode_key)
+{
+    struct Node *new_root = NULL;
+    for (int i = 0; i < size; i++) {
+        int key = generate_key(mode_key, &arr[i]);
+        new_root = insert_node(new_root, arr[i], key);
+    }
+    return new_root;
+}
+
+
+struct Node *rebuild_tree_with_new_keys(struct Node *root, CountryField mode_key)
+{
+    if (!root) return NULL;
+
+    // Подсчёт размера дерева
+    int size = count_nodes(root);
+
+    // Копирование данных
+    struct CountryData *arr = malloc(size * sizeof(struct CountryData));
+    if (!arr) return NULL;
+    int idx = 0;
+    copy_tree_data(root, arr, &idx);
+
+    // Удаление старого дерева
+    delete_tree(root);
+
+    // Создание нового дерева с новыми ключами
+    struct Node *new_root = build_tree_with_keys(arr, size, mode_key);
+
+    free(arr);
+    return new_root;
+}
+
+struct Node *rebuild_tree_filter_higher(struct Node *root, CountryField mode_key, int value)
+{
+    if (!root) return NULL;
+
+    // Подсчёт размера дерева
+    int size = count_nodes(root);
+
+    // Копирование данных
+    struct CountryData *arr = malloc(size * sizeof(struct CountryData));
+    if (!arr) return NULL;
+    int idx = 0;
+    copy_tree_data(root, arr, &idx);
+
+    // Удаление старого дерева
+    delete_tree(root);
+    
+    // Создание нового дерева с новыми ключами
+    struct Node *new_root = build_tree_with_keys(arr, size, mode_key);
+
+    free(arr);
+    return new_root;
+}
+struct Node *rebuild_tree_filter_lower(struct Node *root, CountryField mode_key, int value)
+{
+    if (!root) return NULL;
+
+    // Подсчёт размера дерева
+    int size = count_nodes(root);
+
+    // Копирование данных
+    struct CountryData *arr = malloc(size * sizeof(struct CountryData));
+    if (!arr) return NULL;
+    int idx = 0;
+    copy_tree_data(root, arr, &idx);
+
+    // Удаление старого дерева
+    delete_tree(root);
+
+    // Создание нового дерева с новыми ключами
+    struct Node *new_root = build_tree_with_keys(arr, size, mode_key);
+
+    free(arr);
+    return new_root;
 }

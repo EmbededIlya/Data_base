@@ -5,7 +5,7 @@
 #include <stdlib.h>
 #include <string.h>
 #include <math.h>
-
+#include <ctype.h>
 /** Maximum length for country name and phone code */
 #define MAX_NAME_LEN 64
 #define MAX_PHONE_LEN 16
@@ -18,6 +18,15 @@ struct CountryData
     double gdp;         // GDP
     long area;          // Area
 };
+
+typedef enum
+{
+    NAME = 0,
+    POPULATION,
+    PHONE_CODE,
+    GDP,
+    AREA
+} CountryField;
 
 /** Structure for AVL tree node */
 struct Node {
@@ -61,5 +70,24 @@ void print_node_co_data(const struct Node *node);
 
 /* Test function */
 void test_tree(void);
+
+/* Rebuild tree */
+int count_nodes(struct Node *node);
+void copy_tree_data(struct Node *node, struct CountryData *arr, int *idx);
+struct Node *build_tree_with_keys(struct CountryData *arr, int size, CountryField mode_key);
+struct Node *rebuild_tree_with_new_keys(struct Node *root, CountryField mode_key);
+int generate_key(CountryField mode_key, const struct CountryData *country);
+
+
+/* Work with file */
+struct CountryData parseCountryData(const char *line);
+void printCountryData(const struct CountryData *country);
+int read_amount(const char *filename_r);
+int letter_pos(char c);
+unsigned long convert_in_key(const char *str);
+char *get_country_name(const char *line);
+struct Node *read_file(const char *filename, CountryField mode_key);
+int generate_key(CountryField mode_key, const struct CountryData *country);  
+int write_file(const char *filename, int*size, struct Node *root);  
 
 #endif // TREE_H

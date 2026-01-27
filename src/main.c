@@ -166,11 +166,12 @@ void command_interface(enum commands cmd, struct Node **root, int *size)
             printf("%*s\n", width_begin, "No parameter!!!");
             break;
         }
-        *root = read_file(name_file_in, search_val);
+        *root = rebuild_tree_with_new_keys(*root,search_val);
         delete_node(*root, generate_key(search_val, &country));
         printf("%*s\n", width_begin, "Node delete!!!");
         print_node_co_data(search_node(sort_root, generate_key(search_val, &country)));
-        *root = read_file(name_file_in, sort_value_general);
+        *root = rebuild_tree_with_new_keys(*root,sort_value_general);
+        *size-=1;
         break;
     case CMD_SEARCH:
         printf("%*s\n", width_begin, "Write search parameter:");
@@ -203,8 +204,10 @@ void command_interface(enum commands cmd, struct Node **root, int *size)
             printf("%*s\n", width_begin, "No parameter!!!");
             break;
         }
-        sort_root = read_file(name_file_in, search_val);
+        *root = rebuild_tree_with_new_keys(*root,search_val);
         print_node_co_data(search_node(sort_root, generate_key(search_val, &country)));
+        *size += 1;
+        *root = rebuild_tree_with_new_keys(*root,sort_value_general);
         // Поиск записи
         break;
     case CMD_EXIT:
