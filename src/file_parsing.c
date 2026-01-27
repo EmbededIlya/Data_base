@@ -152,6 +152,34 @@ void writeCountryRow(FILE *f, struct CountryData *c)
     fprintf(f,"+----------------------------+--------------+--------+----------+-----------+----------+\n");
     printf("+----------------------------+--------------+--------+----------+-----------+----------+\n");
 }
+void writeCountryRow_console(struct CountryData *c)
+{
+    printf("+----------------------------+--------------+--------+----------+-----------+----------+\n");
+    printf(
+        "| %-26s | %12ld | %-6s | %8.2f | %9ld | %8ld |\n",
+        c->name,
+        c->population,
+        c->phoneCode,
+        c->gdp,
+        c->area
+    );
+    printf("+----------------------------+--------------+--------+----------+-----------+----------+\n");
+}
+
+void print_begin_file_table_con()
+{
+    printf("+----------------------------+--------------+--------+----------+-----------+----------+\n");
+    printf(
+        "| %-26s | %12s | %-6s | %8s | %9s | %8s |\n",
+        "Country",
+        "Population",
+        "Phone",
+        "GDP",
+        "Area",
+        "Key"
+    );
+    printf("+----------------------------+--------------+--------+----------+-----------+----------+\n");
+}
 
 void print_begin_file_table(FILE *out)
 {
@@ -199,6 +227,7 @@ int write_file(const char *filename, int*size, struct Node *root)
     for (int i = 0; i < *size; i++)
     {   
         writeCountryRow(fp, &arr[i].country);
+        //printf("num: %d\n", i);
     }
     // free array
     free(arr);

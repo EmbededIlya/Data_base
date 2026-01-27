@@ -10,6 +10,7 @@ enum commands
     CMD_ADD_COUNTRY,
     CMD_DELETE,
     CMD_SEARCH,
+    CMD_FILTER,
     CMD_EXIT,
     CMD_SAVE_FILE_DEFAULT,
     CMD_LOAD_READY
@@ -59,6 +60,7 @@ void command_interface(enum commands cmd, struct Node **root, int *size)
     struct Node *sort_root;
     struct CountryData country;
     int tmp;
+    int filter_val = 0;
     {
         /* data */
     };
@@ -73,6 +75,7 @@ void command_interface(enum commands cmd, struct Node **root, int *size)
         printf("%*d - Display data\n", width_end, CMD_DISPLAY);
         printf("%*d - Add new record\n", width_end, CMD_ADD_COUNTRY);
         printf("%*d - Delete record\n", width_end, CMD_DELETE);
+        printf("%*d - Filter the table\n", width_end, CMD_FILTER);
         printf("%*d - Search record\n", width_end, CMD_SEARCH);
         printf("%*d - Exit program\n", width_end, CMD_EXIT);
         printf("%*d - Save ready data from default file\n", width_end, CMD_SAVE_FILE_DEFAULT);
@@ -209,6 +212,20 @@ void command_interface(enum commands cmd, struct Node **root, int *size)
         *size += 1;
         *root = rebuild_tree_with_new_keys(*root,sort_value_general);
         // Поиск записи
+        break;
+
+    case CMD_FILTER:
+        printf("%*s\n", width_begin, "Write parameter:");
+        printf("%*s\n", width_begin, "Available sort values: POPULATION - 1, PHONE_CODE - 2, GDP - 3, AREA - 4");
+        scanf("%d", &tmp);
+        search_val = (CountryField)tmp;
+        printf("%*s\n", width_begin, "Write value:");
+        scanf("%d", &tmp);
+        filter_val = tmp;
+        printf("%*s\n", width_begin, "Write 1 - lower than value, write 2 - higher than value");
+        scanf("%d", &tmp);
+        filter_tree(&sort_root,*root,filter_val, tmp, search_val);
+        delete_tree(sort_root);
         break;
     case CMD_EXIT:
         // Выход из программы

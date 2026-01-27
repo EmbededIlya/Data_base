@@ -8,7 +8,7 @@
  * @param key
  * @return struct Node*
  */
-struct Node *create_node(struct CountryData new_country, int key)
+struct Node *create_node(struct CountryData new_country, unsigned long key)
 {
     struct Node *new_node = malloc(sizeof(struct Node));
     if (!new_node)
@@ -48,7 +48,7 @@ int get_height(struct Node *N)
 
 void update_height(struct Node *N)
 {
-   if (N)
+    if (N)
         N->height = 1 + fmax(get_height(N->left), get_height(N->right));
 }
 
@@ -57,7 +57,7 @@ int get_balance(struct Node *N)
     return N == NULL ? 0 : get_height(N->left) - get_height(N->right);
 }
 
-struct Node *search_node(struct Node *root, int key)
+struct Node *search_node(struct Node *root, unsigned long key)
 {
     if (root == NULL)
         return NULL;
@@ -117,7 +117,7 @@ struct Node *balance_tree(struct Node *root)
 }
 
 /* Insert a new node into the AVL tree */
-struct Node *insert_node(struct Node *root, struct CountryData country, int key)
+struct Node *insert_node(struct Node *root, struct CountryData country, unsigned long key)
 {
     if (root == NULL)
     {
@@ -142,7 +142,7 @@ struct Node *insert_node(struct Node *root, struct CountryData country, int key)
     return balance_tree(root);
 }
 
-struct Node *delete_node(struct Node *root, int key)
+struct Node *delete_node(struct Node *root, unsigned long key)
 {
     if (root == NULL)
         return NULL;
@@ -165,7 +165,7 @@ struct Node *delete_node(struct Node *root, int key)
         else if (root->left == NULL || root->right == NULL)
         {
             // Node with one children
-             struct Node *tmp = root;
+            struct Node *tmp = root;
             root = (root->left) ? root->left : root->right;
             free(tmp);
         }
@@ -188,9 +188,10 @@ struct Node *delete_node(struct Node *root, int key)
 
 void inorder_traverse(struct Node *node)
 {
-     if (!node) return;
+    if (!node)
+        return;
     inorder_traverse(node->left);
-    printf("%d ", node->key);
+    writeCountryRow_console(&node->country);
     inorder_traverse(node->right);
 }
 
@@ -199,17 +200,18 @@ void reverse_inorder_traverse(struct Node *node)
     if (!node)
         return;
     reverse_inorder_traverse(node->right);
-    printf("Key %d Name %s GDP %.1f Population %ld Area %ld\n", node->key, node->country.name, node->country.gdp, node->country.population, node->country.area);
+    writeCountryRow_console(&node->country);
     reverse_inorder_traverse(node->left);
 }
 
 void inorder_array(struct Node *node, struct Node *arr, int *idx)
 {
-    if (!node) return;
+    if (!node)
+        return;
     inorder_array(node->left, arr, idx);
     arr[*idx] = *node; // сохраняем текущую ноду
-    //printf("inorder_array %d\n", *idx);     
-    (*idx)++;  
+    // printf("inorder_array %d\n", *idx);
+    (*idx)++;
 
     inorder_array(node->right, arr, idx);
 }
@@ -225,7 +227,8 @@ void print_inorder_array(struct Node **arr, int size)
 
 void reverse_inorder_array(struct Node *node, struct Node *arr, int idx)
 {
-    if (!node) return;
+    if (!node)
+        return;
 
     reverse_inorder_array(node->right, arr, idx);
     arr[idx] = *node;
@@ -233,11 +236,11 @@ void reverse_inorder_array(struct Node *node, struct Node *arr, int idx)
     reverse_inorder_array(node->left, arr, idx);
 }
 
-
-struct Node * create_arr_nodes(int*size, struct Node *root)
+struct Node *create_arr_nodes(int *size, struct Node *root)
 {
     struct Node *arr = malloc((*size) * sizeof(struct Node));
-    if (!arr) {
+    if (!arr)
+    {
         printf("Memory allocation failed for array of nodes.\n");
         return NULL;
     }
@@ -247,8 +250,6 @@ struct Node * create_arr_nodes(int*size, struct Node *root)
 }
 
 /** Test function for the AVL tree implementation.*/
-
-
 
 void test_tree(void)
 {
@@ -289,7 +290,8 @@ void test_tree(void)
 
 void print_node_co_data(const struct Node *node)
 {
-    if (!node) {
+    if (!node)
+    {
         printf("Node: NULL\n");
         return;
     }
@@ -301,44 +303,45 @@ void print_node_co_data(const struct Node *node)
     printf("    area: %ld\n", node->country.area);
 }
 
-
 int count_nodes(struct Node *node)
 {
-    if (!node) return 0;
+    if (!node)
+        return 0;
     return 1 + count_nodes(node->left) + count_nodes(node->right);
 }
 
-
 void copy_tree_data(struct Node *node, struct CountryData *arr, int *idx)
 {
-    if (!node) return;
+    if (!node)
+        return;
     copy_tree_data(node->left, arr, idx);
     arr[(*idx)++] = node->country;
     copy_tree_data(node->right, arr, idx);
 }
 
-
 struct Node *build_tree_with_keys(struct CountryData *arr, int size, CountryField mode_key)
 {
     struct Node *new_root = NULL;
-    for (int i = 0; i < size; i++) {
-        int key = generate_key(mode_key, &arr[i]);
+    for (int i = 0; i < size; i++)
+    {
+        unsigned long key = generate_key(mode_key, &arr[i]);
         new_root = insert_node(new_root, arr[i], key);
     }
     return new_root;
 }
 
-
 struct Node *rebuild_tree_with_new_keys(struct Node *root, CountryField mode_key)
 {
-    if (!root) return NULL;
+    if (!root)
+        return NULL;
 
     // Подсчёт размера дерева
     int size = count_nodes(root);
 
     // Копирование данных
     struct CountryData *arr = malloc(size * sizeof(struct CountryData));
-    if (!arr) return NULL;
+    if (!arr)
+        return NULL;
     int idx = 0;
     copy_tree_data(root, arr, &idx);
 
@@ -352,47 +355,87 @@ struct Node *rebuild_tree_with_new_keys(struct Node *root, CountryField mode_key
     return new_root;
 }
 
-struct Node *rebuild_tree_filter_higher(struct Node *root, CountryField mode_key, int value)
+void rebuild_filter_higher(struct Node *node, struct Node **new_root, CountryField mode_key, int value)
 {
-    if (!root) return NULL;
+    if (!node)
+        return;
 
-    // Подсчёт размера дерева
-    int size = count_nodes(root);
+    rebuild_filter_higher(node->left, new_root, mode_key, value);
 
-    // Копирование данных
-    struct CountryData *arr = malloc(size * sizeof(struct CountryData));
-    if (!arr) return NULL;
-    int idx = 0;
-    copy_tree_data(root, arr, &idx);
-
-    // Удаление старого дерева
-    delete_tree(root);
-    
-    // Создание нового дерева с новыми ключами
-    struct Node *new_root = build_tree_with_keys(arr, size, mode_key);
-
-    free(arr);
-    return new_root;
+    unsigned long key = generate_key(mode_key, &node->country);
+    if (key > value)
+    {
+        *new_root = insert_node(*new_root, node->country, key);
+    }
+    rebuild_filter_higher(node->right, new_root, mode_key, value);
 }
-struct Node *rebuild_tree_filter_lower(struct Node *root, CountryField mode_key, int value)
+
+void rebuild_filter_lower(struct Node *node, struct Node **new_root, CountryField mode_key, int value)
 {
-    if (!root) return NULL;
-
-    // Подсчёт размера дерева
-    int size = count_nodes(root);
-
-    // Копирование данных
-    struct CountryData *arr = malloc(size * sizeof(struct CountryData));
-    if (!arr) return NULL;
-    int idx = 0;
-    copy_tree_data(root, arr, &idx);
-
-    // Удаление старого дерева
-    delete_tree(root);
-
-    // Создание нового дерева с новыми ключами
-    struct Node *new_root = build_tree_with_keys(arr, size, mode_key);
-
-    free(arr);
-    return new_root;
+    if (!node)
+        return;
+    rebuild_filter_lower(node->left, new_root, mode_key, value);
+    unsigned long key = generate_key(mode_key, &node->country);
+    if (key < value)
+    {
+        *new_root = insert_node(*new_root, node->country, key);
+    }
+    rebuild_filter_lower(node->right, new_root, mode_key, value);
 }
+
+struct Node *filter_tree(struct Node **new_root, struct Node *root, int value, int filter, CountryField mode_key)
+{
+    if (filter == 1)
+    {
+        rebuild_filter_lower(root, new_root, mode_key, value);
+    }
+    else if (filter == 2)
+    {
+        rebuild_filter_higher(root, new_root, mode_key, value);
+    }
+    else
+    {
+        printf("unknown_value");
+    }
+    reverse_inorder_traverse(*new_root);
+    return *new_root;
+}
+
+// struct Node *rebuild_tree_filter_higher(struct Node *root, CountryField mode_key, int value)
+// {
+//     if (!root) return NULL;
+
+//     // Подсчёт размера дерева
+//     int size = count_nodes(root);
+//     int i_internal = 0;
+//     int need_value = 0;
+//     // Копирование данных
+//     struct CountryData *arr = malloc(size * sizeof(struct CountryData));
+//     struct CountryData *arr_2 = malloc(size * sizeof(struct CountryData));
+//     if (!arr || !arr_2) {
+//     free(arr);
+//     free(arr_2);
+//     return NULL;
+//     }
+//     int idx = 0;
+//     copy_tree_data(root, arr, &idx);
+
+//     // Удаление старого дерева
+//     delete_tree(root);
+//     // Создание нового дерева с новыми ключами
+//     for(int i = 0; i < size; i++){
+//             if(generate_key(mode_key, &arr[i]) > value){
+//                 arr_2[i_internal] = arr[i];
+//                 i_internal++;
+//             }
+//         }
+//     print_begin_file_table_con();
+//     for (int i = 0; i < i_internal; i++)
+//     {
+//         writeCountryRow_console(&arr_2[i]);
+//     }
+//     struct Node *new_root = build_tree_with_keys(arr_2, i_internal, mode_key);
+//     free(arr);
+//     free(arr_2);
+//     return new_root;
+// }
