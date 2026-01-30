@@ -76,7 +76,7 @@ int count_nodes(struct Node *node);
 void copy_tree_data(struct Node *node, struct CountryData *arr, int *idx);
 struct Node *build_tree_with_keys(struct CountryData *arr, int size, CountryField mode_key);
 struct Node *rebuild_tree_with_new_keys(struct Node *root, CountryField mode_key);
-int generate_key(CountryField mode_key, const struct CountryData *country);
+unsigned long generate_key(CountryField mode_key, const struct CountryData *country);
 
 /* Work with file */
 struct CountryData parseCountryData(const char *line);
@@ -86,7 +86,7 @@ int letter_pos(char c);
 unsigned long convert_in_key(const char *str);
 char *get_country_name(const char *line);
 struct Node *read_file(const char *filename, CountryField mode_key);
-int generate_key(CountryField mode_key, const struct CountryData *country);
+unsigned long generate_key(CountryField mode_key, const struct CountryData *country);
 int write_file(const char *filename, int *size, struct Node *root);
 
 /* Filter value */

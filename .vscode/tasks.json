@@ -7,7 +7,7 @@
             "command": "powershell",
             "args": [
                 "-Command",
-                "if (Test-Path 'build/CMakeCache.txt') { Remove-Item -Force 'build/CMakeCache.txt' }; if (!(Test-Path 'build')) { mkdir 'build' }; cd 'build'; cmake -G Ninja '..'; ninja"
+                "if (Test-Path 'build/CMakeCache.txt') { Remove-Item -Force 'build/CMakeCache.txt' }; if (!(Test-Path 'build')) { mkdir 'build' }; cd 'build'; cmake -G Ninja -DCMAKE_BUILD_TYPE=Debug Ninja '..'; ninja"
             ],
             "group": {
                 "kind": "build",

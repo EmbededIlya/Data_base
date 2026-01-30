@@ -121,6 +121,7 @@ struct Node *insert_node(struct Node *root, struct CountryData country, unsigned
 {
     if (root == NULL)
     {
+        printf("New_tree\n");
         return create_node(country, key);
     }
 
@@ -292,7 +293,7 @@ void print_node_co_data(const struct Node *node)
 {
     if (!node)
     {
-        printf("Node: NULL\n");
+        printf("Node: not found or deleted\n");
         return;
     }
     printf("  Country data:\n");

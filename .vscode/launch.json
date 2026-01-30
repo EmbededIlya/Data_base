@@ -19,7 +19,7 @@
             "request": "launch",
             "program": "${workspaceFolder}/build/database.exe",
             "args": [],
-            "stopAtEntry": true,  // Для отладки - останавливаться
+            "stopAtEntry": true, // Для отладки - останавливаться
             "cwd": "${workspaceFolder}",
             "environment": [],
             "externalConsole": true,

@@ -11,6 +11,7 @@ enum commands
     CMD_DELETE,
     CMD_SEARCH,
     CMD_FILTER,
+    CMD_SORT,
     CMD_EXIT,
     CMD_SAVE_FILE_DEFAULT,
     CMD_LOAD_READY
@@ -57,7 +58,7 @@ void command_interface(enum commands cmd, struct Node **root, int *size)
     char sort_val[100] = "NAME";
     static CountryField sort_value_general = NAME;
     CountryField search_val = NAME;
-    struct Node *sort_root;
+    struct Node *sort_root = NULL;
     struct CountryData country;
     int tmp;
     int filter_val = 0;
@@ -77,6 +78,7 @@ void command_interface(enum commands cmd, struct Node **root, int *size)
         printf("%*d - Delete record\n", width_end, CMD_DELETE);
         printf("%*d - Filter the table\n", width_end, CMD_FILTER);
         printf("%*d - Search record\n", width_end, CMD_SEARCH);
+        printf("%*d - Sort all tree\n", width_end, CMD_SORT);
         printf("%*d - Exit program\n", width_end, CMD_EXIT);
         printf("%*d - Save ready data from default file\n", width_end, CMD_SAVE_FILE_DEFAULT);
         printf("%*d - Load ready data from default file\n", width_end, CMD_LOAD_READY);
@@ -89,8 +91,16 @@ void command_interface(enum commands cmd, struct Node **root, int *size)
         printf("%*s\n", width_begin, "Available sort values: NAME, POPULATION, PHONE_CODE, GDP, AREA");
         scanf("%s", sort_val); // ввод строки без пробелов
         sort_value_general = convert(sort_val);
-        *root = read_file(name_file_in, convert(sort_val));
+        *root = read_file(name_file_in, sort_value_general);
         *size = read_amount(name_file_in);
+        // Загрузка данных из файла
+        break;
+    case CMD_SORT:
+        printf("%*s\n", width_begin, "Write sort value: ");
+        printf("%*s\n", width_begin, "Available sort values: NAME, POPULATION, PHONE_CODE, GDP, AREA");
+        scanf("%s", sort_val); // ввод строки без пробелов
+        sort_value_general = convert(sort_val);
+        *root = rebuild_tree_with_new_keys(*root,sort_value_general);
         // Загрузка данных из файла
         break;
     case CMD_SAVE:
@@ -101,7 +111,8 @@ void command_interface(enum commands cmd, struct Node **root, int *size)
         // Сохранение данных в файл
         break;
     case CMD_DISPLAY:
-        // Отображение данных
+        // Отображение данныхprint_begin_file_table_con()
+        print_begin_file_table_con();
         inorder_traverse(*root);
         break;
     case CMD_ADD_COUNTRY:
@@ -121,7 +132,7 @@ void command_interface(enum commands cmd, struct Node **root, int *size)
         printf("Write area:\n");
         *size += 1;
         scanf("%ld", &country.area);
-        insert_node(*root, country, generate_key(sort_value_general, &country));
+        *root = insert_node(*root, country, generate_key(sort_value_general, &country));
         print_node_co_data(search_node(*root, generate_key(sort_value_general, &country)));
         break;
     case CMD_LOAD_READY:
@@ -169,12 +180,16 @@ void command_interface(enum commands cmd, struct Node **root, int *size)
             printf("%*s\n", width_begin, "No parameter!!!");
             break;
         }
-        *root = rebuild_tree_with_new_keys(*root,search_val);
-        delete_node(*root, generate_key(search_val, &country));
-        printf("%*s\n", width_begin, "Node delete!!!");
-        print_node_co_data(search_node(sort_root, generate_key(search_val, &country)));
-        *root = rebuild_tree_with_new_keys(*root,sort_value_general);
-        *size-=1;
+        if((*root = rebuild_tree_with_new_keys(*root,search_val)) == NULL){
+            printf("Tree is empty!!!\n");
+            break;
+        }else{
+            *root = delete_node(*root, generate_key(search_val, &country));
+            print_node_co_data(search_node(sort_root, generate_key(search_val, &country)));
+            *root = rebuild_tree_with_new_keys(*root,sort_value_general);
+            *size-=1;
+        }
+
         break;
     case CMD_SEARCH:
         printf("%*s\n", width_begin, "Write search parameter:");
@@ -229,6 +244,7 @@ void command_interface(enum commands cmd, struct Node **root, int *size)
         break;
     case CMD_EXIT:
         // Выход из программы
+        printf("%*s\n", width_begin, "Exiting program...");
         break;
     default:
         printf("Unknown command - try command help\n");
@@ -246,10 +262,10 @@ int main()
     // free_tree(root);
     // printf("---------------------------------END---------------------------:\n");
     bool start_flag = 1;
-    bool exit_flag = 0;
+    int exit_flag = 0;
     struct Node *root = NULL;
     int size_file = 0;
-    while (1)
+    while (exit_flag == 0)
     {
         if (start_flag)
         {
@@ -259,8 +275,27 @@ int main()
         }
         printf("Enter command number: ");
         int cmd;
-        scanf("%d", &cmd);
-        command_interface(cmd, &root, &size_file);
+        if(scanf("%d", &cmd) == 0){
+            printf("Invalid input. Please enter a valid command number.\n");
+            while (getchar() != '\n'); // Clear input buffer
+            continue;
+        }
+        else if (cmd < CMD_HELP || cmd > CMD_LOAD_READY)
+        {
+            printf("Unknown command - try command help\n");
+            continue;
+        }else if (cmd == CMD_EXIT)
+        {
+            exit_flag = 1;
+            printf("Exiting program...\n");
+            if (root != NULL)
+            {
+                delete_tree(root);
+            }
+            break;
+        }else{
+            command_interface(cmd, &root, &size_file);
+        }
     }
     return 0;
 }

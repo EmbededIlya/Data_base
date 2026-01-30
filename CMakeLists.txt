@@ -19,7 +19,9 @@ if(NOT EXISTS "${CMAKE_CURRENT_SOURCE_DIR}/inc")
     message(WARNING "Include directory 'inc' not found!")
 endif()
 
+
 # Настройки компилятора
+
 set(CMAKE_C_STANDARD 11)
 set(CMAKE_C_STANDARD_REQUIRED ON)
 set(CMAKE_C_EXTENSIONS OFF)

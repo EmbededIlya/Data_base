@@ -12,7 +12,7 @@
 
 # =============================================================================
 # Project: TreeProject
-# Configurations: 
+# Configurations: Debug
 # =============================================================================
 
 #############################################
@@ -20,6 +20,11 @@
 
 ninja_required_version = 1.5
 
+
+#############################################
+# Set configuration variable for custom commands.
+
+CONFIGURATION = Debug
 # =============================================================================
 # Include auxiliary files.
 
@@ -44,27 +49,30 @@ cmake_ninja_workdir = C$:/Programming/SpecialQuest/Data_base/build/
 
 build cmake_object_order_depends_target_database: phony || .
 
-build CMakeFiles/database.dir/src/main.c.obj: C_COMPILER__database_unscanned_ C$:/Programming/SpecialQuest/Data_base/src/main.c || cmake_object_order_depends_target_database
+build CMakeFiles/database.dir/src/main.c.obj: C_COMPILER__database_unscanned_Debug C$:/Programming/SpecialQuest/Data_base/src/main.c || cmake_object_order_depends_target_database
+  CONFIG = Debug
   DEP_FILE = CMakeFiles\database.dir\src\main.c.obj.d
-  FLAGS = -std=c11
+  FLAGS = -g -std=c11
   INCLUDES = -IC:/Programming/SpecialQuest/Data_base/inc
   OBJECT_DIR = CMakeFiles\database.dir
   OBJECT_FILE_DIR = CMakeFiles\database.dir\src
   TARGET_COMPILE_PDB = CMakeFiles\database.dir\
   TARGET_PDB = database.pdb
 
-build CMakeFiles/database.dir/src/tree.c.obj: C_COMPILER__database_unscanned_ C$:/Programming/SpecialQuest/Data_base/src/tree.c || cmake_object_order_depends_target_database
+build CMakeFiles/database.dir/src/tree.c.obj: C_COMPILER__database_unscanned_Debug C$:/Programming/SpecialQuest/Data_base/src/tree.c || cmake_object_order_depends_target_database
+  CONFIG = Debug
   DEP_FILE = CMakeFiles\database.dir\src\tree.c.obj.d
-  FLAGS = -std=c11
+  FLAGS = -g -std=c11
   INCLUDES = -IC:/Programming/SpecialQuest/Data_base/inc
   OBJECT_DIR = CMakeFiles\database.dir
   OBJECT_FILE_DIR = CMakeFiles\database.dir\src
   TARGET_COMPILE_PDB = CMakeFiles\database.dir\
   TARGET_PDB = database.pdb
 
-build CMakeFiles/database.dir/src/file_parsing.c.obj: C_COMPILER__database_unscanned_ C$:/Programming/SpecialQuest/Data_base/src/file_parsing.c || cmake_object_order_depends_target_database
+build CMakeFiles/database.dir/src/file_parsing.c.obj: C_COMPILER__database_unscanned_Debug C$:/Programming/SpecialQuest/Data_base/src/file_parsing.c || cmake_object_order_depends_target_database
+  CONFIG = Debug
   DEP_FILE = CMakeFiles\database.dir\src\file_parsing.c.obj.d
-  FLAGS = -std=c11
+  FLAGS = -g -std=c11
   INCLUDES = -IC:/Programming/SpecialQuest/Data_base/inc
   OBJECT_DIR = CMakeFiles\database.dir
   OBJECT_FILE_DIR = CMakeFiles\database.dir\src
@@ -79,7 +87,9 @@ build CMakeFiles/database.dir/src/file_parsing.c.obj: C_COMPILER__database_unsca
 #############################################
 # Link the executable database.exe
 
-build database.exe: C_EXECUTABLE_LINKER__database_ CMakeFiles/database.dir/src/main.c.obj CMakeFiles/database.dir/src/tree.c.obj CMakeFiles/database.dir/src/file_parsing.c.obj
+build database.exe: C_EXECUTABLE_LINKER__database_Debug CMakeFiles/database.dir/src/main.c.obj CMakeFiles/database.dir/src/tree.c.obj CMakeFiles/database.dir/src/file_parsing.c.obj
+  CONFIG = Debug
+  FLAGS = -g
   LINK_LIBRARIES = -lkernel32 -luser32 -lgdi32 -lwinspool -lshell32 -lole32 -loleaut32 -luuid -lcomdlg32 -ladvapi32
   OBJECT_DIR = CMakeFiles\database.dir
   POST_BUILD = cd .
